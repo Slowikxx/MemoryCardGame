@@ -18,4 +18,12 @@ export const cards = [
 	{ img: shell3 },
 	{ img: star1 },
 	{ img: star2 },
+	{ img: flower1 },
+	{ img: flower2 },
+	{ img: palm },
+	{ img: shell1 },
+	{ img: shell2 },
+	{ img: shell3 },
+	{ img: star1 },
+	{ img: star2 },
 ];
