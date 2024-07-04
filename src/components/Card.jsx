@@ -1,13 +1,18 @@
-import { useState } from 'react';
 import { background } from '../assets';
 
-const Card = ({ index, image }) => {
-	const [isFlipped, setIsFlipped] = useState(false);
+const Card = ({ index, image, isFlipped, setCardsDeck }) => {
+	const flipCard = () => {
+		setCardsDeck((prevCards) =>
+			prevCards.map((card) =>
+				card.id === index ? { ...card, flipped: true } : card
+			)
+		);
+	};
 
 	return (
-		<div onClick={() => setIsFlipped(true)} key={index} className="w-24">
+		<div key={index} className="w-24">
 			{!isFlipped ? (
-				<img src={background} alt="background" />
+				<img onClick={flipCard} src={background} alt="background" />
 			) : (
 				<img src={image} alt={`card-${index}`} />
 			)}
