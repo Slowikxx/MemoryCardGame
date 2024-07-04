@@ -1,25 +1,16 @@
 import { background } from '../assets';
 
-const Card = ({ index, image, isFlipped, setCardsDeck, setChosenCard }) => {
-	const flipCard = () => {
-		setCardsDeck((prevCards) =>
-			prevCards.map((card) =>
-				card.id === index ? { ...card, flipped: true } : card
-			)
-		);
-	};
-
+const Card = ({ card, isFlipped, setChosenCard }) => {
 	const handleClick = () => {
-		flipCard();
-		setChosenCard({ img: image, id: index, flipped: isFlipped });
+		setChosenCard(card);
 	};
 
 	return (
-		<div key={index} className="w-24">
+		<div key={card.id} className="w-24">
 			{!isFlipped ? (
 				<img onClick={handleClick} src={background} alt="background" />
 			) : (
-				<img src={image} alt={`card-${index}`} />
+				<img src={card.img} alt={`card-${card.id}`} />
 			)}
 		</div>
 	);

@@ -33,7 +33,6 @@ const App = () => {
 		if (firstCard && secondCard) {
 			// if cards match set their matched state to true
 			if (firstCard.img === secondCard.img) {
-				console.log('match');
 				setCardsDeck((prevCards) =>
 					prevCards.map((card) => {
 						if (card.img === firstCard.img) {
@@ -46,8 +45,8 @@ const App = () => {
 				console.log(cardsDeck);
 				resetTurn();
 			} else {
-				// next turn
-				resetTurn();
+				// next turn after 1s
+				setTimeout(() => resetTurn(), 1000);
 			}
 		}
 	}, [firstCard, secondCard]);
@@ -64,8 +63,9 @@ const App = () => {
 			</button>
 			<GameBoard
 				cardsDeck={cardsDeck}
-				setCardsDeck={setCardsDeck}
 				setChosenCard={setChosenCard}
+				firstCard={firstCard}
+				secondCard={secondCard}
 			/>
 		</div>
 	);
