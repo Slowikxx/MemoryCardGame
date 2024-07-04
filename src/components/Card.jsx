@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { background } from '../assets';
 
-const Card = ({ index, image, onClick }) => {
+const Card = ({ index, image }) => {
 	const [isFlipped, setIsFlipped] = useState(false);
 
 	return (
