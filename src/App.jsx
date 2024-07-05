@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { GameBoard } from './components';
+import { GameBoard, Stats } from './components';
 import { cards } from './data';
 
 const App = () => {
@@ -120,42 +120,12 @@ const App = () => {
 				Memory Card Game
 			</h1>
 			<div className="flex flex-row mt-5">
-				<div className="flex flex-col mx-20">
-					<div className="flex flex-row justify-between">
-						<div className="stats-container w-56 h-40">
-							<h2 className="text-gray-200 font-playWrite text-2xl">Stats:</h2>
-
-							<p className="text-gray-900 text-xl font-playWrite my-3">
-								Turn: {turn > 0 ? turn : 'x'}
-							</p>
-
-							<p className="text-gray-900 text-xl font-playWrite mb-3">
-								Moves: {moves > 0 ? moves : 'x'}
-							</p>
-						</div>
-						<div className="stats-container w-36 h-20 self-end flex justify-center mx-0">
-							<button onClick={restartGame} className="btn">
-								Restart
-							</button>
-						</div>
-					</div>
-					<div className="stats-container mt-5 w-96">
-						<h2 className="text-gray-200 font-playWrite text-2xl mb-5">
-							Choose Board:
-						</h2>
-						<div className="flex flex-row justify-between">
-							<button onClick={() => chooseBoard('4x4')} className="btn">
-								4x4
-							</button>
-							<button onClick={() => chooseBoard('4x5')} className="btn">
-								4x5
-							</button>
-							<button onClick={() => chooseBoard('5x6')} className="btn">
-								5x6
-							</button>
-						</div>
-					</div>
-				</div>
+				<Stats
+					turn={turn}
+					moves={moves}
+					restartGame={restartGame}
+					chooseBoard={chooseBoard}
+				/>
 				<GameBoard
 					cardsDeck={cardsDeck}
 					setChosenCard={setChosenCard}
