@@ -19,10 +19,12 @@ const App = () => {
 		setTurn(1);
 	};
 
+	// setting the chosen cards
 	const setChosenCard = (card) => {
 		firstCard ? setSecondCard(card) : setFirstCard(card);
 	};
 
+	// next turn, resets the chosen cards and making cards clickable again
 	const resetTurn = () => {
 		setFirstCard(null);
 		setSecondCard(null);
@@ -30,11 +32,22 @@ const App = () => {
 		setCardDisabled(false);
 	};
 
+	// restarts the whole game shuffling cards randomly
 	const restartGame = () => {
 		setFirstCard(null);
 		setSecondCard(null);
 		setTurn(0);
 		shuffleCards();
+	};
+
+	// if all the cards are matched game is over
+	const checkGameOver = () => {
+		if (
+			cardsDeck.length > 0 &&
+			cardsDeck.every((card) => card.matched === true)
+		) {
+			alert('Game Won');
+		}
 	};
 
 	useEffect(() => {
@@ -52,7 +65,6 @@ const App = () => {
 						}
 					})
 				);
-				console.log(cardsDeck);
 				resetTurn();
 			} else {
 				// next turn after 1s
@@ -61,6 +73,12 @@ const App = () => {
 		}
 	}, [firstCard, secondCard]);
 
+	// check if game is over after every turn
+	useEffect(() => {
+		checkGameOver();
+	}, [cardsDeck]);
+
+	// when app loads shuffle the cards starting the game
 	useEffect(() => {
 		shuffleCards();
 	}, []);
