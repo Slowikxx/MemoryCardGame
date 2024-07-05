@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { GameBoard, Stats } from './components';
+import { GameBoard, Stats, BoardChooser } from './components';
 import { cards } from './data';
 
 const App = () => {
@@ -120,12 +120,10 @@ const App = () => {
 				Memory Card Game
 			</h1>
 			<div className="flex flex-row mt-5">
-				<Stats
-					turn={turn}
-					moves={moves}
-					restartGame={restartGame}
-					chooseBoard={chooseBoard}
-				/>
+				<div className="flex flex-col mx-20">
+					<Stats turn={turn} moves={moves} restartGame={restartGame} />
+					<BoardChooser chooseBoard={chooseBoard} />
+				</div>
 				<GameBoard
 					cardsDeck={cardsDeck}
 					setChosenCard={setChosenCard}
