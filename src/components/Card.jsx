@@ -10,15 +10,30 @@ const Card = ({ card, isFlipped, setChosenCard, cardDisabled }) => {
 	return (
 		<div
 			key={card.id}
-			className={`w-24 cursor-pointer ${
-				!isFlipped && 'hover:border-4 hover:border-[#f50089]'
+			className={`group [perspective:1000px] w-24 cursor-pointer ${
+				!isFlipped && !cardDisabled && 'hover:border-4 hover:border-[#f50089]'
 			}`}
 		>
-			{!isFlipped ? (
-				<img onClick={handleClick} src={background} alt="background" />
-			) : (
-				<img src={card.img} alt={`card-${card.id}`} />
-			)}
+			<div
+				className={`transition-all duration-300 [transform-style:preserve-3d] ${
+					isFlipped ? '[transform:rotateY(180deg)]' : ''
+				}`}
+				onClick={handleClick}
+			>
+				{!isFlipped ? (
+					<img
+						src={background}
+						alt="background"
+						className="[backface-visibility:hidden]"
+					/>
+				) : (
+					<img
+						src={card.img}
+						alt={`card-${card.id}`}
+						className="[backface-visibility:hidden] [transform:rotateY(180deg)]"
+					/>
+				)}
+			</div>
 		</div>
 	);
 };
