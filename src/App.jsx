@@ -8,6 +8,7 @@ const App = () => {
 	const [firstCard, setFirstCard] = useState(null);
 	const [secondCard, setSecondCard] = useState(null);
 	const [cardDisabled, setCardDisabled] = useState(false);
+	const [moves, setMoves] = useState(0);
 
 	// shuffling the cards and setting the state
 	const shuffleCards = () => {
@@ -106,9 +107,13 @@ const App = () => {
 						Turn: {turn > 0 ? turn : 'x'}
 					</p>
 
+					<p className="text-gray-900 text-xl font-playWrite mb-3">
+						Moves: {moves > 0 ? moves : 'x'}
+					</p>
+
 					<button
 						onClick={restartGame}
-						className="font-playWrite bg-blue-300 text-xl w-32 h-10 rounded-2xl border-black border-2 text-white hover:text-black mt-5"
+						className="font-playWrite bg-blue-300 text-xl w-28 h-10 rounded-2xl border-black border-2 text-white hover:text-black"
 					>
 						Restart
 					</button>
@@ -119,6 +124,7 @@ const App = () => {
 					firstCard={firstCard}
 					secondCard={secondCard}
 					cardDisabled={cardDisabled}
+					setMoves={setMoves}
 				/>
 			</div>
 		</div>

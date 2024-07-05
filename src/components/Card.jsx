@@ -1,9 +1,10 @@
 import { background } from '../assets';
 
-const Card = ({ card, isFlipped, setChosenCard, cardDisabled }) => {
+const Card = ({ card, isFlipped, setChosenCard, cardDisabled, setMoves }) => {
 	const handleClick = () => {
 		if (!cardDisabled) {
 			setChosenCard(card);
+			setMoves((prevMoves) => prevMoves + 1);
 		}
 	};
 

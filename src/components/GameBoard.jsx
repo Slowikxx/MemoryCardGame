@@ -6,6 +6,7 @@ const GameBoard = ({
 	firstCard,
 	secondCard,
 	cardDisabled,
+	setMoves,
 }) => {
 	return (
 		<div className="justify-center items-center flex">
@@ -20,6 +21,7 @@ const GameBoard = ({
 						deck={cardsDeck}
 						setChosenCard={setChosenCard}
 						cardDisabled={cardDisabled}
+						setMoves={setMoves}
 					/>
 				))}
 			</div>
