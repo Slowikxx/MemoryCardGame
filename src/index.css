@@ -12,3 +12,13 @@
 		box-sizing: border-box;
 	}
 }
+
+@layer components {
+	.btn {
+		@apply font-playWrite bg-blue-300 text-xl w-28 h-10 rounded-2xl text-black hover:text-blue-300 hover:bg-black;
+	}
+
+	.stats-container {
+		@apply bg-gray-500 border-2 border-black rounded-3xl flex flex-col p-3;
+	}
+}

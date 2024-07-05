@@ -65,15 +65,19 @@ const App = () => {
 		switch (size) {
 			case '4x4':
 				setGameCards(cards.slice(0, 8));
+				restartGame();
 				break;
 			case '4x5':
 				setGameCards(cards.slice(0, 10));
+				restartGame();
 				break;
 			case '5x6':
 				setGameCards(cards);
+				restartGame();
 				break;
 			default:
 				setGameCards(cards.slice(0, 8));
+				restartGame();
 		}
 	};
 
@@ -116,46 +120,37 @@ const App = () => {
 				Memory Card Game
 			</h1>
 			<div className="flex flex-row mt-5">
-				<div className="flex flex-col">
-					<div className="w-[400px] h-[200px] bg-gray-500 border-2 border-black mx-20 flex flex-col p-3">
-						<h2 className="text-gray-200 font-playWrite text-2xl">Stats:</h2>
+				<div className="flex flex-col mx-20">
+					<div className="flex flex-row justify-between">
+						<div className="stats-container w-56 h-40">
+							<h2 className="text-gray-200 font-playWrite text-2xl">Stats:</h2>
 
-						<p className="text-gray-900 text-xl font-playWrite my-3">
-							Turn: {turn > 0 ? turn : 'x'}
-						</p>
+							<p className="text-gray-900 text-xl font-playWrite my-3">
+								Turn: {turn > 0 ? turn : 'x'}
+							</p>
 
-						<p className="text-gray-900 text-xl font-playWrite mb-3">
-							Moves: {moves > 0 ? moves : 'x'}
-						</p>
-
-						<button
-							onClick={restartGame}
-							className="font-playWrite bg-blue-300 text-xl w-28 h-10 rounded-2xl border-black border-2 text-white hover:text-black"
-						>
-							Restart
-						</button>
+							<p className="text-gray-900 text-xl font-playWrite mb-3">
+								Moves: {moves > 0 ? moves : 'x'}
+							</p>
+						</div>
+						<div className="stats-container w-36 h-20 self-end flex justify-center mx-0">
+							<button onClick={restartGame} className="btn">
+								Restart
+							</button>
+						</div>
 					</div>
-					<div className="w-[400px] h-[120px] bg-gray-500 border-2 border-black mx-20 flex flex-col p-3 mt-5">
+					<div className="stats-container mt-5 w-96">
 						<h2 className="text-gray-200 font-playWrite text-2xl mb-5">
 							Choose Board:
 						</h2>
 						<div className="flex flex-row justify-between">
-							<button
-								onClick={() => chooseBoard('4x4')}
-								className="font-playWrite bg-blue-300 text-xl w-28 h-10 rounded-2xl border-black border-2 text-white hover:text-black"
-							>
+							<button onClick={() => chooseBoard('4x4')} className="btn">
 								4x4
 							</button>
-							<button
-								onClick={() => chooseBoard('4x5')}
-								className="font-playWrite bg-blue-300 text-xl w-28 h-10 rounded-2xl border-black border-2 text-white hover:text-black"
-							>
+							<button onClick={() => chooseBoard('4x5')} className="btn">
 								4x5
 							</button>
-							<button
-								onClick={() => chooseBoard('5x6')}
-								className="font-playWrite bg-blue-300 text-xl w-28 h-10 rounded-2xl border-black border-2 text-white hover:text-black"
-							>
+							<button onClick={() => chooseBoard('5x6')} className="btn">
 								5x6
 							</button>
 						</div>
