@@ -23,7 +23,15 @@ const App = () => {
 
 	// setting the chosen cards
 	const setChosenCard = (card) => {
-		firstCard ? setSecondCard(card) : setFirstCard(card);
+		if (firstCard) {
+			if (firstCard.id !== card.id) {
+				setSecondCard(card);
+			} else {
+				setMoves((prevMoves) => prevMoves - 1);
+			}
+		} else {
+			setFirstCard(card);
+		}
 	};
 
 	// next turn, resets the chosen cards and making cards clickable again
@@ -40,6 +48,7 @@ const App = () => {
 		setSecondCard(null);
 		setTurn(0);
 		shuffleCards();
+		setMoves(0);
 	};
 
 	// if all the cards are matched game is over
@@ -102,20 +111,10 @@ const App = () => {
 	}, [gameCards]);
 
 	return (
-		<div className="w-full h-screen max-h-full flex flex-col bg-gradient-to-b from-[#355c7d] to-[#c06c84] py-5">
+		<div className="w-full min-h-screen max-h-full flex flex-col bg-gradient-to-b from-[#355c7d] to-[#c06c84] py-5">
 			<h1 className="font-rockSalt text-4xl text-white self-center">
 				Memory Card Game
 			</h1>
-
-			{/* {turn === 0 && (
-				<button
-					onClick={shuffleCards}
-					className="self-center font-playWrite bg-blue-300 text-xl w-32 h-10 rounded-2xl border-black border-2 text-white hover:text-black mt-5"
-				>
-					Start
-				</button>
-			)} */}
-
 			<div className="flex flex-row mt-5">
 				<div className="flex flex-col">
 					<div className="w-[400px] h-[200px] bg-gray-500 border-2 border-black mx-20 flex flex-col p-3">
