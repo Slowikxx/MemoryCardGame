@@ -3,6 +3,7 @@ import { GameBoard } from './components';
 import { cards } from './data';
 
 const App = () => {
+	const [gameCards, setGameCards] = useState([]);
 	const [cardsDeck, setCardsDeck] = useState([]);
 	const [turn, setTurn] = useState(0);
 	const [firstCard, setFirstCard] = useState(null);
@@ -12,7 +13,7 @@ const App = () => {
 
 	// shuffling the cards and setting the state
 	const shuffleCards = () => {
-		const shuffledCards = [...cards, ...cards]
+		const shuffledCards = [...gameCards, ...gameCards]
 			.sort(() => Math.random() - 0.5)
 			.map((card) => ({ ...card, id: Math.random() }));
 
@@ -51,6 +52,22 @@ const App = () => {
 		}
 	};
 
+	const chooseBoard = (size) => {
+		switch (size) {
+			case '4x4':
+				setGameCards(cards.slice(0, 8));
+				break;
+			case '4x5':
+				setGameCards(cards.slice(0, 10));
+				break;
+			case '5x6':
+				setGameCards(cards);
+				break;
+			default:
+				setGameCards(cards.slice(0, 8));
+		}
+	};
+
 	useEffect(() => {
 		// if both cards are chosen check if they match
 		if (firstCard && secondCard) {
@@ -82,7 +99,7 @@ const App = () => {
 	// when app loads shuffle the cards starting the game
 	useEffect(() => {
 		shuffleCards();
-	}, []);
+	}, [gameCards]);
 
 	return (
 		<div className="w-full h-screen max-h-full flex flex-col bg-gradient-to-b from-[#355c7d] to-[#c06c84] py-5">
@@ -100,23 +117,50 @@ const App = () => {
 			)} */}
 
 			<div className="flex flex-row mt-5">
-				<div className="w-[400px] h-[200px] bg-gray-500 border-2 border-black mx-20 flex flex-col p-3">
-					<h2 className="text-gray-200 font-playWrite text-2xl">Stats:</h2>
+				<div className="flex flex-col">
+					<div className="w-[400px] h-[200px] bg-gray-500 border-2 border-black mx-20 flex flex-col p-3">
+						<h2 className="text-gray-200 font-playWrite text-2xl">Stats:</h2>
 
-					<p className="text-gray-900 text-xl font-playWrite my-3">
-						Turn: {turn > 0 ? turn : 'x'}
-					</p>
+						<p className="text-gray-900 text-xl font-playWrite my-3">
+							Turn: {turn > 0 ? turn : 'x'}
+						</p>
 
-					<p className="text-gray-900 text-xl font-playWrite mb-3">
-						Moves: {moves > 0 ? moves : 'x'}
-					</p>
+						<p className="text-gray-900 text-xl font-playWrite mb-3">
+							Moves: {moves > 0 ? moves : 'x'}
+						</p>
 
-					<button
-						onClick={restartGame}
-						className="font-playWrite bg-blue-300 text-xl w-28 h-10 rounded-2xl border-black border-2 text-white hover:text-black"
-					>
-						Restart
-					</button>
+						<button
+							onClick={restartGame}
+							className="font-playWrite bg-blue-300 text-xl w-28 h-10 rounded-2xl border-black border-2 text-white hover:text-black"
+						>
+							Restart
+						</button>
+					</div>
+					<div className="w-[400px] h-[120px] bg-gray-500 border-2 border-black mx-20 flex flex-col p-3 mt-5">
+						<h2 className="text-gray-200 font-playWrite text-2xl mb-5">
+							Choose Board:
+						</h2>
+						<div className="flex flex-row justify-between">
+							<button
+								onClick={() => chooseBoard('4x4')}
+								className="font-playWrite bg-blue-300 text-xl w-28 h-10 rounded-2xl border-black border-2 text-white hover:text-black"
+							>
+								4x4
+							</button>
+							<button
+								onClick={() => chooseBoard('4x5')}
+								className="font-playWrite bg-blue-300 text-xl w-28 h-10 rounded-2xl border-black border-2 text-white hover:text-black"
+							>
+								4x5
+							</button>
+							<button
+								onClick={() => chooseBoard('5x6')}
+								className="font-playWrite bg-blue-300 text-xl w-28 h-10 rounded-2xl border-black border-2 text-white hover:text-black"
+							>
+								5x6
+							</button>
+						</div>
+					</div>
 				</div>
 				<GameBoard
 					cardsDeck={cardsDeck}
@@ -125,6 +169,7 @@ const App = () => {
 					secondCard={secondCard}
 					cardDisabled={cardDisabled}
 					setMoves={setMoves}
+					boardSize={gameCards.length}
 				/>
 			</div>
 		</div>
