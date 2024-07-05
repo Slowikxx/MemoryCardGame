@@ -1,6 +1,12 @@
 import Card from './Card';
 
-const GameBoard = ({ cardsDeck, setChosenCard, firstCard, secondCard }) => {
+const GameBoard = ({
+	cardsDeck,
+	setChosenCard,
+	firstCard,
+	secondCard,
+	cardDisabled,
+}) => {
 	return (
 		<div className="justify-center items-center flex">
 			<div className="grid grid-cols-4 gap-5">
@@ -13,6 +19,7 @@ const GameBoard = ({ cardsDeck, setChosenCard, firstCard, secondCard }) => {
 						}
 						deck={cardsDeck}
 						setChosenCard={setChosenCard}
+						cardDisabled={cardDisabled}
 					/>
 				))}
 			</div>
