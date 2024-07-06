@@ -1,6 +1,7 @@
 import { background } from '../assets';
 
 const Card = ({ card, isFlipped, setChosenCard, cardDisabled, setMoves }) => {
+	// when a card that is not disabled is clicked it is set to be the chosen card and a move is added
 	const handleClick = () => {
 		if (!cardDisabled) {
 			setChosenCard(card);
