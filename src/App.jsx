@@ -11,6 +11,8 @@ const App = () => {
 	const [cardDisabled, setCardDisabled] = useState(false);
 	const [moves, setMoves] = useState(0);
 	const [isGameOver, setIsGameOver] = useState(false);
+	const [activeTimer, setActiveTimer] = useState(false);
+	const [secondsPassed, setSecondsPassed] = useState(0);
 
 	// shuffling the cards and setting the state
 	const shuffleCards = () => {
@@ -50,6 +52,8 @@ const App = () => {
 		shuffleCards();
 		setMoves(0);
 		setIsGameOver(false);
+		setSecondsPassed(0);
+		setActiveTimer(true);
 	};
 
 	// if all the cards are matched game is over
@@ -59,6 +63,7 @@ const App = () => {
 			cardsDeck.every((card) => card.matched === true)
 		) {
 			setIsGameOver(true);
+			setActiveTimer(false);
 		}
 	};
 
@@ -105,6 +110,23 @@ const App = () => {
 		}
 	}, [firstCard, secondCard]);
 
+	// timer
+	useEffect(() => {
+		let interval = null;
+		// when timer is activated count seconds
+		if (activeTimer) {
+			interval = setInterval(() => {
+				setSecondsPassed((prevSeconds) => prevSeconds + 1);
+			}, 1000);
+		} else if (!activeTimer && secondsPassed !== 0) {
+			clearInterval(interval);
+		}
+
+		return () => {
+			clearInterval(interval);
+		};
+	}, [activeTimer, secondsPassed]);
+
 	// check if game is over after every turn
 	useEffect(() => {
 		checkGameOver();
@@ -123,7 +145,12 @@ const App = () => {
 			{!isGameOver ? (
 				<div className="flex flex-row mt-5">
 					<div className="flex flex-col mx-20">
-						<Stats turn={turn} moves={moves} restartGame={restartGame} />
+						<Stats
+							turn={turn}
+							moves={moves}
+							secondsPassed={secondsPassed}
+							restartGame={restartGame}
+						/>
 						<BoardChooser chooseBoard={chooseBoard} />
 					</div>
 					<GameBoard
@@ -137,7 +164,11 @@ const App = () => {
 					/>
 				</div>
 			) : (
-				<GameOver moves={moves} restartGame={restartGame} />
+				<GameOver
+					moves={moves}
+					secondsPassed={secondsPassed}
+					restartGame={restartGame}
+				/>
 			)}
 		</div>
 	);

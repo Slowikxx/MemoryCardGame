@@ -1,4 +1,4 @@
-const GameOver = ({ moves, restartGame }) => {
+const GameOver = ({ moves, secondsPassed, restartGame }) => {
 	return (
 		<div className="stats-container w-1/2 h-80 self-center mt-20 p-5">
 			<h1 className="font-rockSalt text-4xl text-pink-400 self-center">
@@ -12,7 +12,7 @@ const GameOver = ({ moves, restartGame }) => {
 					You have beaten the game in{' '}
 					<span className="text-blue-300">{moves}</span> moves and{' '}
 					{/* TODO:count game time */}
-					<span className="text-blue-300">time</span> time!
+					<span className="text-blue-300">{secondsPassed}</span> seconds!
 				</p>
 				<p className="text-xl font-playWrite text-gray-300">
 					Would you like to <span className="text-blue-300">play again?</span>
