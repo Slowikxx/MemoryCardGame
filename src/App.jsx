@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { GameBoard, Stats, BoardChooser } from './components';
+import { GameBoard, Stats, BoardChooser, GameOver } from './components';
 import { cards } from './data';
 
 const App = () => {
@@ -10,7 +10,7 @@ const App = () => {
 	const [secondCard, setSecondCard] = useState(null);
 	const [cardDisabled, setCardDisabled] = useState(false);
 	const [moves, setMoves] = useState(0);
-	const [isGameOver, setIsGameOver] = useState(true);
+	const [isGameOver, setIsGameOver] = useState(false);
 
 	// shuffling the cards and setting the state
 	const shuffleCards = () => {
@@ -19,7 +19,6 @@ const App = () => {
 			.map((card) => ({ ...card, id: Math.random() }));
 
 		setCardsDeck(shuffledCards);
-		setTurn(1);
 	};
 
 	// setting the chosen cards
@@ -47,7 +46,7 @@ const App = () => {
 	const restartGame = () => {
 		setFirstCard(null);
 		setSecondCard(null);
-		setTurn(0);
+		setTurn(1);
 		shuffleCards();
 		setMoves(0);
 		setIsGameOver(false);
@@ -138,30 +137,7 @@ const App = () => {
 					/>
 				</div>
 			) : (
-				<div className="stats-container w-1/2 h-80 self-center mt-20 p-5">
-					<h1 className="font-rockSalt text-4xl text-pink-400 self-center">
-						Game Won!
-					</h1>
-					<p className="mt-4 self-center text-2xl font-playWrite text-gray-300">
-						Congratulations!
-					</p>
-					<div className="mt-10">
-						<p className="mb-5 text-xl font-playWrite text-gray-300">
-							You have beaten the game in{' '}
-							<span className="text-blue-300">{moves}</span> moves and{' '}
-							{/* TODO:count game time */}
-							<span className="text-blue-300">time</span> time!
-						</p>
-						<p className="text-xl font-playWrite text-gray-300">
-							Would you like to{' '}
-							<span className="text-blue-300">play again?</span>
-						</p>
-					</div>
-
-					<button onClick={restartGame} className="btn w-36 mt-8 self-center">
-						New Game
-					</button>
-				</div>
+				<GameOver moves={moves} restartGame={restartGame} />
 			)}
 		</div>
 	);
