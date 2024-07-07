@@ -3,6 +3,7 @@ import { GameBoard, Stats, BoardChooser, GameOver } from './components';
 import { cards } from './data';
 
 const App = () => {
+	const [initialCards, setInitialCards] = useState([]);
 	const [gameCards, setGameCards] = useState([]);
 	const [cardsDeck, setCardsDeck] = useState([]);
 	const [turn, setTurn] = useState(0);
@@ -14,7 +15,13 @@ const App = () => {
 	const [activeTimer, setActiveTimer] = useState(false);
 	const [secondsPassed, setSecondsPassed] = useState(0);
 
-	// shuffling the cards and setting the state
+	// initially shuffle cards before board selection to provide unique experience every time
+	const initiallyShuffleCards = () => {
+		const shuffledCards = cards.sort(() => Math.random() - 0.5);
+		setInitialCards(shuffledCards);
+	};
+
+	// shuffling the game cards and setting the state
 	const shuffleCards = () => {
 		const shuffledCards = [...gameCards, ...gameCards]
 			.sort(() => Math.random() - 0.5)
@@ -67,22 +74,23 @@ const App = () => {
 		}
 	};
 
+	// setting cards based on the picked board size
 	const chooseBoard = (size) => {
 		switch (size) {
 			case '4x4':
-				setGameCards(cards.slice(0, 8));
+				setGameCards(initialCards.slice(0, 8));
 				restartGame();
 				break;
 			case '4x5':
-				setGameCards(cards.slice(0, 10));
+				setGameCards(initialCards.slice(0, 10));
 				restartGame();
 				break;
 			case '5x6':
-				setGameCards(cards);
+				setGameCards(initialCards);
 				restartGame();
 				break;
 			default:
-				setGameCards(cards.slice(0, 8));
+				setGameCards(initialCards.slice(0, 8));
 				restartGame();
 		}
 	};
@@ -136,6 +144,10 @@ const App = () => {
 	useEffect(() => {
 		shuffleCards();
 	}, [gameCards]);
+
+	useEffect(() => {
+		initiallyShuffleCards();
+	}, []);
 
 	return (
 		<div className="w-full min-h-screen max-h-full flex flex-col bg-gradient-to-b from-[#355c7d] to-[#c06c84] py-5">
